@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Tutorial.Web
@@ -18,7 +15,7 @@ namespace Tutorial.Web
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env,IConfiguration configuration)
         {
             if (env.IsDevelopment())
             {
@@ -27,8 +24,9 @@ namespace Tutorial.Web
 
             app.Run(async (context) =>
             {
-                await context.Response.WriteAsync("Hello World!123456");
-                //123发光飞碟
+                var welcome = configuration["Welcome"];
+                await context.Response.WriteAsync(welcome);
+                //123发光飞碟2212
             });
         }
     }
